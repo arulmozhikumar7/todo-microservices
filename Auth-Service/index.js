@@ -1,0 +1,13 @@
+const express = require('express')
+const app = express()
+const dotenv = require('dotenv').config()
+const cors = require('cors')
+const connectDb = require('./config/db')
+const routes = require('./routes')
+
+app.use(express.json())
+app.use(cors())
+connectDb()
+app.use('/api', routes)
+app.use('/', (req, res) => res.send('Auth Service'))
+app.listen(process.env.PORT, () => console.log(`Server started on port ${process.env.PORT}`))
